@@ -1,0 +1,1578 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Celitech Description",
+    "title": "Celitech APIs",
+    "version": "v1"
+  },
+  "host": "localhost:3000",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/service/sf/provisioning": {
+      "post": {
+        "tags": [
+          "Service Provisioning"
+        ],
+        "description": "create package for a activated sim, return HTTP code 200 if success",
+        "summary": "create package for a activated sim",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "simPackage",
+            "description": "create package for a activated sim",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/simPackage"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/simPackageResult"
+            }
+          }
+        }
+      }
+    },
+    "/user": {
+      "post": {
+        "tags": [
+          "Contract"
+        ],
+        "description": "assign profile to user, return HTTP code 200 if success",
+        "summary": "assign profile to user",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "userData",
+            "description": "assign profile to user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/profileInfo"
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "method",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "unknown",
+              "one_charge",
+              "customer"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/userDetails"
+            }
+          },
+          "400": {
+            "description": "check saved payment credential failed"
+          }
+        }
+      }
+    },
+    "/profile": {
+      "post": {
+        "tags": [
+          "Contract"
+        ],
+        "description": "assign subscription to profile, return HTTP code 200 if success",
+        "summary": "assign subscription to profile",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "subscriptionData",
+            "description": "assign subscription to profile",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/subscriptionData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      }
+    },
+    "/departureDate": {
+      "post": {
+        "tags": [
+          "Contract"
+        ],
+        "description": "assign departure date to profile, return HTTP code 204 if success",
+        "summary": "assign departure date to profile",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "subscriptionData",
+            "description": "assign departure date to profile",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/setDepartureDateData"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "invalid request"
+          }
+        }
+      }
+    },
+    "/email": {
+      "post": {
+        "tags": [
+          "Contract"
+        ],
+        "description": "send QRCode by email, return HTTP code 204 if success",
+        "summary": "send QRCode by email",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "userData",
+            "description": "send QRCode by email",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/emailQRCode"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "no content"
+          }
+        }
+      }
+    },
+    "/deactivate/sim": {
+      "post": {
+        "tags": [
+          "Sim Status"
+        ],
+        "description": "Deactivate sim, return HTTP code 204 if success",
+        "summary": "Deactivate sim",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "profileInfo",
+            "description": "Deactivate sim",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sim"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "no content"
+          }
+        }
+      }
+    },
+    "/activate/sim": {
+      "post": {
+        "tags": [
+          "Sim Status"
+        ],
+        "description": "Activate sim, return HTTP code 204 if success",
+        "summary": "Activate sim",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "profileInfo",
+            "description": "activate sim",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sim"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "no content"
+          }
+        }
+      }
+    },
+    "/package/status": {
+      "post": {
+        "tags": [
+          "Sim Status"
+        ],
+        "description": "Set the status of a sim, return HTTP code 204 if success",
+        "summary": "Set the status of a sim",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "packageInfo",
+            "description": "Set the status of a sim",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/simPackageStatus"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "no content"
+          }
+        }
+      }
+    },
+    "/subscription/archive": {
+      "post": {
+        "tags": [
+          "Subscription Status"
+        ],
+        "description": "Archive Subscription, return HTTP code 204 if success",
+        "summary": "Archive Subscription",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "subscriptionDetails",
+            "description": "Archive subscription",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/subscriptionDetails"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Subscription Already Archived"
+          },
+          "404": {
+            "description": "Subscription Not Found"
+          },
+          "405": {
+            "description": "Not allowed to archive an active subscription"
+          }
+        }
+      }
+    },
+    "/profile/recycle": {
+      "post": {
+        "tags": [
+          "Profile Recycling"
+        ],
+        "description": "Recycle Profile, return HTTP code 204 if success",
+        "summary": "Recycle Profile",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "ProfileInfo",
+            "description": "Profile Recycling",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/profileRecycle"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Unable To Archive A Linked Profile"
+          },
+          "404": {
+            "description": "Profile Not Found"
+          },
+          "405": {
+            "description": "Profile Already Archived"
+          }
+        }
+      }
+    },
+    "/subscriptions/active": {
+      "get": {
+        "tags": [
+          "Subscriptions"
+        ],
+        "responses": {
+          "200": {
+            "description": "data consumption check successful",
+            "schema": {
+              "$ref": "#/definitions/subscriptionPackageInfo"
+            }
+          },
+          "500": {
+            "description": "Unhandled exception"
+          }
+        }
+      }
+    },
+    "/subscriptions": {
+      "get": {
+        "tags": [
+          "Subscriptions"
+        ],
+        "responses": {
+          "200": {
+            "description": "list of subscription returned",
+            "schema": {
+              "$ref": "#/definitions/subscriptions"
+            }
+          },
+          "500": {
+            "description": "Unhandled exception"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Contract"
+        ],
+        "description": "Add Subscription for a service, return HTTP code 200 if success",
+        "summary": "Add Subscription for a service",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Subscription",
+            "description": "Add Subscription for a service",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/contractSubscription"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/subscriptionResult"
+            }
+          },
+          "404": {
+            "description": "No Package for subscription"
+          }
+        }
+      }
+    },
+    "/subscription/package": {
+      "post": {
+        "tags": [
+          "Subscription Status"
+        ],
+        "description": "Set the status of a Subscription and add sim package, return HTTP code 204 if success",
+        "summary": "Set the status of a Subscription and add sim package",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "subscriptionStatus",
+            "description": "set Subscription Sim PackageId",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/subscriptionSimPackageId"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "SimPackageId linked to another ICCID"
+          },
+          "404": {
+            "description": "Subscription not found"
+          }
+        }
+      }
+    },
+    "/packages/{destination}/{duration}/auth": {
+      "get": {
+        "tags": [
+          "Service Package"
+        ],
+        "description": "get all packages by travel details with authentication, return HTTP code 200 if success",
+        "summary": "get all packages by travel details with authentication",
+        "parameters": [
+          {
+            "name": "destination",
+            "in": "path",
+            "description": "get all packages for this destination",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "region",
+              "country"
+            ]
+          },
+          {
+            "name": "duration",
+            "in": "path",
+            "description": "get all packages for this duration",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Packages returned",
+            "schema": {
+              "$ref": "#/definitions/packageReturned"
+            }
+          },
+          "400": {
+            "description": "Error Retrieving Packages"
+          }
+        }
+      }
+    },
+    "/packages/{destination}/{duration}": {
+      "get": {
+        "tags": [
+          "Service Package"
+        ],
+        "description": "get all packages by travel details, return HTTP code 200 if success",
+        "summary": "get all packages by travel details",
+        "parameters": [
+          {
+            "name": "destination",
+            "in": "path",
+            "description": "get all packages for this destination",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "region",
+              "country"
+            ]
+          },
+          {
+            "name": "duration",
+            "in": "path",
+            "description": "get all packages for this duration",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Packages returned",
+            "schema": {
+              "$ref": "#/definitions/packageReturned"
+            }
+          },
+          "400": {
+            "description": "Error Retrieving Packages"
+          }
+        }
+      }
+    },
+    "/allPackage": {
+      "get": {
+        "tags": [
+          "Service Package"
+        ],
+        "description": "get all packages, return HTTP code 200 if success",
+        "summary": "get all packages",
+        "responses": {
+          "200": {
+            "description": "Packages returned",
+            "schema": {
+              "$ref": "#/definitions/packageReturned"
+            }
+          },
+          "400": {
+            "description": "Error Retrieving Packages"
+          }
+        }
+      }
+    },
+    "/destinations": {
+      "get": {
+        "tags": [
+          "Country"
+        ],
+        "description": "get active destination list, return HTTP code 200 if success",
+        "summary": "get active destination list",
+        "responses": {
+          "200": {
+            "description": "list of country",
+            "schema": {
+              "$ref": "#/definitions/destination"
+            }
+          },
+          "404": {
+            "description": "No Countries Returned"
+          }
+        }
+      }
+    },
+    "/serviceStatus": {
+      "post": {
+        "tags": [
+          "Service Status"
+        ],
+        "description": "add Service Status To Database, return HTTP code 200 if success",
+        "summary": "add Service Status To Database",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "serviceStatus",
+            "description": "Add service status for the package",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/serviceStatus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "return the service posted",
+            "schema": {
+              "$ref": "#/definitions/serviceStatuses"
+            }
+          },
+          "404": {
+            "description": "No Country To Post"
+          }
+        }
+      }
+    },
+    "/serviceStatus/remove": {
+      "post": {
+        "tags": [
+          "Service Status"
+        ],
+        "description": "delete Service Status after deactivation, return HTTP code 204 if success",
+        "summary": "delete Service Status after deactivation",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "serviceStatus",
+            "description": "delete Service Status after deactivation",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/profileRecycle"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Missing input"
+          }
+        }
+      }
+    },
+    "/notification/cachestatus": {
+      "post": {
+        "tags": [
+          "Service Status"
+        ],
+        "description": "update cache status, return HTTP code 204 if success",
+        "summary": "update cache status",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "serviceStatus",
+            "description": "update cache status",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/cacheStatus"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Missing input"
+          }
+        }
+      }
+    },
+    "/notification/active": {
+      "get": {
+        "tags": [
+          "Service status"
+        ],
+        "description": "get number of service Status inprocessing, return HTTP code 200 if success",
+        "summary": "get number of service Status inprocessing",
+        "responses": {
+          "200": {
+            "description": "return number of records",
+            "schema": {
+              "$ref": "#/definitions/records"
+            }
+          }
+        }
+      }
+    },
+    "/notifcation/listBatch": {
+      "get": {
+        "tags": [
+          "Service Status"
+        ],
+        "description": "get specific number of service Status inprocessing then devided it to batch, return HTTP code 200 if success",
+        "summary": "get specific number of service Status inprocessing then devided it to batch",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "itemsPerLambda",
+            "description": "get specific number of service Status inprocessing then devided it to batch",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/itemsPerLambda"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "array of lists of service status inprocessing",
+            "schema": {
+              "$ref": "#/definitions/Batches"
+            }
+          }
+        }
+      }
+    },
+    "/notifcation/worker": {
+      "post": {
+        "tags": [
+          "Service Status"
+        ],
+        "description": "notify user by email when he cache a specific current consumption and update the cache status, return HTTP code 204 if success",
+        "summary": "notify user by email cache specific current consumption and update the cache status",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "listOfServiceStatus",
+            "description": "notify user by email cache specific current consumption and update the cache status",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/listOfServiceStatus"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Missing input"
+          }
+        }
+      }
+    },
+    "/cards": {
+      "post": {
+        "tags": [
+          "Card"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "card",
+            "description": "Add new card for the user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/cardInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "create card correctly"
+          },
+          "500": {
+            "description": "Unhandled exception"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Card"
+        ],
+        "responses": {
+          "200": {
+            "description": "list of cards returned correctly",
+            "schema": {
+              "$ref": "#/definitions/listOutput"
+            }
+          },
+          "500": {
+            "description": "Unhandled exception"
+          }
+        }
+      }
+    },
+    "/cards/{card_token}": {
+      "delete": {
+        "tags": [
+          "Card"
+        ],
+        "parameters": [
+          {
+            "name": "card_token",
+            "in": "path",
+            "description": "delete card for user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "delete card correctly"
+          },
+          "500": {
+            "description": "Unhandled exception"
+          }
+        }
+      }
+    },
+    "/Profiles": {
+      "get": {
+        "tags": [
+          "Profile"
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/check"
+            }
+          },
+          "400": {
+            "description": "check if user has a profile failed"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "check": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "string",
+          "example": true
+        }
+      }
+    },
+    "subscriptions": {
+      "type": "object",
+      "properties": {
+        "subscriptions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "e839c3-666b-4bec-b7f3-fc35c57a14ef"
+              },
+              "arrivalDate": {
+                "type": "string",
+                "example": "2019-05-04 14:55:45"
+              },
+              "departureDate": {
+                "type": "string",
+                "example": "2019-06-04 14:55:45"
+              },
+              "visitedCountry": {
+                "type": "string",
+                "example": "Spain"
+              },
+              "Service_Package": {
+                "type": "object",
+                "properties": {
+                  "dataLimit": {
+                    "type": "integer",
+                    "example": 1000000000
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "userDetails": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "e839c3-666b-4bec-b7f3-fc35c57a14"
+        },
+        "email": {
+          "type": "string",
+          "example": "mohammadAli@celitech.com"
+        },
+        "paymentMethod": {
+          "type": "string",
+          "enum": [
+            "unknown",
+            "one_charge",
+            "customer"
+          ]
+        }
+      }
+    },
+    "subscriptionPackageInfo": {
+      "type": "object",
+      "properties": {
+        "dataUsageRemainingInBytes": {
+          "type": "integer",
+          "example": 1000000000
+        },
+        "dataLimitInGB": {
+          "type": "integer",
+          "example": 214023
+        },
+        "arrivalDate": {
+          "type": "string",
+          "example": "2019-04-04 14:55:45"
+        },
+        "departureDate": {
+          "type": "string",
+          "example": "2019-05-04 14:55:45"
+        }
+      }
+    },
+    "cardInfo": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "example": "card_1Eazpa2eZvKYlo2CCi8tGpRb"
+        }
+      }
+    },
+    "customerBody": {
+      "type": "object",
+      "properties": {
+        "orderId": {
+          "type": "integer",
+          "example": 6735
+        }
+      }
+    },
+    "listOutput": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "card_1Eazpa2eZvKYlo2CCi8tGpRb"
+          },
+          "brand": {
+            "type": "string",
+            "example": "Visa"
+          },
+          "exp_month": {
+            "type": "integer",
+            "example": 8
+          },
+          "exp_year": {
+            "type": "integer",
+            "example": 2020
+          },
+          "fingerprint": {
+            "type": "string",
+            "example": "credit"
+          },
+          "last4": {
+            "type": "integer",
+            "example": 4242
+          }
+        }
+      }
+    },
+    "user": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "example": "e86839c3-666b-4bec-b7f3-fc35c57a14ef"
+        }
+      }
+    },
+    "records": {
+      "type": "object",
+      "properties": {
+        "numberOfRecords": {
+          "type": "integer",
+          "example": 50
+        }
+      }
+    },
+    "listOfServiceStatus": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "03f95420-15aa-48a9-9b27-0e494a8d269b"
+          },
+          "iccid": {
+            "type": "string",
+            "example": "8910300000000793020"
+          },
+          "currentConsumption": {
+            "type": "integer",
+            "example": 0
+          },
+          "dataLimit": {
+            "type": "integer",
+            "example": 1000000000
+          },
+          "status": {
+            "type": "integer",
+            "enum": [
+              10,
+              20,
+              30,
+              40
+            ],
+            "format": "int64",
+            "description": "10:active, 20:not_50, 30:not_80, 40:not_100"
+          },
+          "simPackageId": {
+            "type": "string",
+            "example": "05f6977b-9f53-49da-a071-74d8f0b502c8"
+          },
+          "cachestatus": {
+            "type": "integer",
+            "enum": [
+              10,
+              20,
+              30
+            ],
+            "format": "int64",
+            "description": "10:unprocessed, 20:inprocessing, 30:processed"
+          },
+          "email": {
+            "type": "string",
+            "example": "mohammadAli@celitech.com"
+          }
+        }
+      }
+    },
+    "Batches": {
+      "type": "object",
+      "properties": {
+        "listOfBatchs": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "03f95420-15aa-48a9-9b27-0e494a8d269b"
+                },
+                "iccid": {
+                  "type": "string",
+                  "example": "8910300000000793020"
+                },
+                "currentConsumption": {
+                  "type": "integer",
+                  "example": 0
+                },
+                "dataLimit": {
+                  "type": "integer",
+                  "example": 1000000000
+                },
+                "status": {
+                  "type": "integer",
+                  "enum": [
+                    10,
+                    20,
+                    30,
+                    40
+                  ],
+                  "format": "int64",
+                  "description": "10:active, 20:not_50, 30:not_80, 40:not_100"
+                },
+                "simPackageId": {
+                  "type": "string",
+                  "example": "05f6977b-9f53-49da-a071-74d8f0b502c8"
+                },
+                "cachestatus": {
+                  "type": "integer",
+                  "enum": [
+                    10,
+                    20,
+                    30
+                  ],
+                  "format": "int64",
+                  "description": "10:unprocessed, 20:inprocessing, 30:processed"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "mohammadAli@celitech.com"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2019-04-26 08:55:16"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2019-04-26 08:55:16"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "itemsPerLambda": {
+      "type": "object",
+      "properties": {
+        "size": {
+          "type": "integer",
+          "example": 5
+        }
+      }
+    },
+    "cacheStatus": {
+      "type": "object",
+      "properties": {
+        "cachestatus": {
+          "type": "integer",
+          "enum": [
+            10,
+            20,
+            30
+          ],
+          "format": "int64",
+          "description": "10:unprocessed, 20:inprocessing, 30:processed"
+        }
+      }
+    },
+    "simPackage": {
+      "type": "object",
+      "properties": {
+        "iccid": {
+          "type": "string",
+          "example": "8910300000000793020"
+        },
+        "packageTypeId": {
+          "type": "string",
+          "example": "05f6977b-9f53-49da-a071-74d"
+        }
+      }
+    },
+    "serviceStatus": {
+      "type": "object",
+      "properties": {
+        "serviceStatuses": {
+          "type": "object",
+          "properties": {
+            "iccid": {
+              "type": "string",
+              "example": "8910300000000793020"
+            },
+            "currentConsumption": {
+              "type": "integer",
+              "example": 0
+            },
+            "dataLimit": {
+              "type": "integer",
+              "example": 1000000000
+            },
+            "status": {
+              "type": "integer",
+              "enum": [
+                10,
+                20,
+                30,
+                40
+              ],
+              "format": "int64",
+              "description": "10:active, 20:not_50, 30:not_80, 40:not_100"
+            },
+            "simPackageId": {
+              "type": "string",
+              "example": "05f6977b-9f53-49da-a071-74d8f0b502c8"
+            },
+            "cachestatus": {
+              "type": "integer",
+              "enum": [
+                10,
+                20,
+                30
+              ],
+              "format": "int64",
+              "description": "10:unprocessed, 20:inprocessing, 30:processed"
+            },
+            "email": {
+              "type": "string",
+              "example": "mohammadAli@celitech.com"
+            }
+          }
+        }
+      }
+    },
+    "serviceStatuses": {
+      "type": "object",
+      "properties": {
+        "iccid": {
+          "type": "string",
+          "example": "8910300000000793020"
+        },
+        "currentConsumption": {
+          "type": "integer",
+          "example": 0
+        },
+        "dataLimit": {
+          "type": "integer",
+          "example": 1000000000
+        },
+        "status": {
+          "type": "integer",
+          "enum": [
+            10,
+            20,
+            30,
+            40
+          ],
+          "format": "int64",
+          "description": "10:active, 20:not_50, 30:not_80, 40:not_100"
+        },
+        "simPackageId": {
+          "type": "string",
+          "example": "05f6977b-9f53-49da-a071-74d8f0b502c8"
+        },
+        "cachestatus": {
+          "type": "integer",
+          "enum": [
+            10,
+            20,
+            30
+          ],
+          "format": "int64",
+          "description": "10:unprocessed, 20:inprocessing, 30:processed"
+        },
+        "email": {
+          "type": "string",
+          "example": "mohammadAli@celitech.com"
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2019-04-26 08:55:16"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2019-04-26 08:55:16"
+        }
+      }
+    },
+    "packageReturned": {
+      "type": "object",
+      "properties": {
+        "listOfPackages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "101836d1-90e5-41a2-91bf-9bfc22199908"
+              },
+              "name": {
+                "type": "string",
+                "example": "uk-100mb-10hrs-scryptech"
+              },
+              "destination": {
+                "type": "string",
+                "example": "France"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "region",
+                  "country"
+                ]
+              },
+              "dataLimit": {
+                "type": "integer",
+                "example": 1000000000
+              },
+              "price": {
+                "type": "string",
+                "example": "15$"
+              },
+              "validTill": {
+                "type": "string",
+                "example": "2019-02-26 12:02:55"
+              },
+              "commhub_id": {
+                "type": "integer",
+                "example": 82342
+              },
+              "configuration": {
+                "type": "string",
+                "example": "a86839c3-666b-4bec-b7f3-fc35c57a14ef"
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2019-04-26 08:55:16"
+              },
+              "updatedAt": {
+                "type": "string",
+                "example": "2019-04-26 08:55:16"
+              }
+            }
+          }
+        }
+      }
+    },
+    "destination": {
+      "type": "object",
+      "properties": {
+        "regions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "countries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "emailQRCode": {
+      "type": "object",
+      "properties": {
+        "profileIccid": {
+          "type": "string",
+          "example": "8910300000000793020"
+        },
+        "clientEmail": {
+          "type": "string",
+          "example": "mohammadAli@celitech.com"
+        }
+      }
+    },
+    "profileInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "01836d1-90e5-41a2-91bf-9bfc22199908"
+        },
+        "iccid": {
+          "type": "string",
+          "example": "8910300000000793020"
+        },
+        "imsi": {
+          "type": "string",
+          "example": "124322"
+        },
+        "ki": {
+          "type": "string",
+          "example": "12ki7sq"
+        },
+        "opc": {
+          "type": "string",
+          "example": "12ropc3"
+        },
+        "userId": {
+          "type": "string",
+          "example": "01836d1-90e5-41a2-91bf-9bfc221999083"
+        },
+        "departureDate": {
+          "type": "string",
+          "example": "2019-04-26 08:55:16"
+        },
+        "status": {
+          "type": "integer",
+          "enum": [
+            10,
+            20,
+            30,
+            40
+          ],
+          "description": "10: fresh, 20: activationCodeReady, 30: linked, 40: candidateForRecycling "
+        },
+        "subscriptionId": {
+          "type": "string",
+          "example": "585e015d-5392-481e-a10b-f024d9e115f8"
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2019-04-26 08:55:16"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2019-04-26 08:55:16"
+        }
+      }
+    },
+    "subscriptionDetails": {
+      "type": "object",
+      "properties": {
+        "subscriptionId": {
+          "type": "string",
+          "example": "585e015d-5392-481e-a10b-f024d9e115f8"
+        }
+      }
+    },
+    "subscriptionSimPackageId": {
+      "type": "object",
+      "properties": {
+        "subscriptionId": {
+          "type": "string",
+          "example": "585e015d-5392-481e-a10b-f024d9e115f8"
+        },
+        "simPackageId": {
+          "type": "string",
+          "example": "05f6977b-9f53-49da-a071-74d8f0b502c8"
+        },
+        "iccid": {
+          "type": "string",
+          "example": "8910300000000793020"
+        }
+      }
+    },
+    "profileData": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "iccid": {
+              "type": "string",
+              "example": "8910300000000793020"
+            }
+          }
+        }
+      }
+    },
+    "subscriptionResult": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "05f6977b-9f53-49da-a071-74d8f0b502c8"
+            },
+            "visitedCountry": {
+              "type": "string",
+              "example": "France"
+            },
+            "servicePackageId": {
+              "type": "string",
+              "example": "05f6977b-9f53-49da-a071-74d8f0b502c8"
+            },
+            "arrivalDate": {
+              "type": "string",
+              "example": "2018-03-11 22:00:00"
+            },
+            "actualArrivalDate": {
+              "type": "string",
+              "example": "2018-03-11 22:00:00"
+            },
+            "departureDate": {
+              "type": "string",
+              "example": "2018-04-11 21:00:00"
+            },
+            "subscriptionStatus": {
+              "type": "integer",
+              "enum": [
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ],
+              "format": "int64",
+              "description": "10:created, 20:linked, 30:inQueue, 40:simActive, 50:packageCreated, 60:active, 70:deactivationInQueue, 80:simDeactivate, 90:packageTerminate, 100:notActive"
+            },
+            "email": {
+              "type": "string",
+              "example": "mohammadAli@celitech.com"
+            },
+            "createdAt": {
+              "type": "string",
+              "example": "2019-04-26 08:55:16"
+            },
+            "updatedAt": {
+              "type": "string",
+              "example": "2019-04-26 08:55:16"
+            }
+          }
+        }
+      }
+    },
+    "simPackageResult": {
+      "type": "object",
+      "properties": {
+        "packageId": {
+          "type": "string",
+          "example": "05f6977b-9f53-49da-a071-74d8f0b502c8"
+        },
+        "dateCreated": {
+          "type": "integer",
+          "example": 1544697913000
+        },
+        "windowActivationStart": {
+          "type": "integer",
+          "example": 1544697913000
+        },
+        "windowActivationEnd": {
+          "type": "integer",
+          "example": 1544715913000
+        },
+        "status": {
+          "type": "string",
+          "example": "NOT_ACTIVE"
+        },
+        "voiceUsageRemainingInSeconds": {
+          "type": "integer",
+          "example": 0
+        },
+        "dataUsageRemainingInBytes": {
+          "type": "integer",
+          "example": 100000000
+        },
+        "smsUsageRemainingInNums": {
+          "type": "integer",
+          "example": 0
+        },
+        "packageTypeId": {
+          "type": "string",
+          "example": "05f6977b-9f53-49da-a071-74d"
+        }
+      }
+    },
+    "contractSubscription": {
+      "type": "object",
+      "properties": {
+        "servicePackage": {
+          "type": "object",
+          "properties": {
+            "servicePackageId": {
+              "type": "string",
+              "example": "05f6977b-9f53-49da-a071-74d8f0b502c8"
+            },
+            "visitedDestination": {
+              "type": "string",
+              "example": "France"
+            }
+          }
+        },
+        "email": {
+          "type": "string",
+          "example": "mohammadAli@celitech.com"
+        },
+        "stripeToken": {
+          "type": "string",
+          "example": "1n213bc128c3"
+        },
+        "arrivalDate": {
+          "type": "string",
+          "example": "2018-03-11 22:00:00"
+        },
+        "departureDate": {
+          "type": "string",
+          "example": "2018-04-11 21:00:00"
+        }
+      }
+    },
+    "profileRecycle": {
+      "type": "object",
+      "properties": {
+        "iccid": {
+          "type": "string",
+          "example": "8910300000000793020"
+        }
+      }
+    },
+    "setDepartureDateData": {
+      "type": "object",
+      "properties": {
+        "subscriptionId": {
+          "type": "string",
+          "example": "10418e3b-5d73-4dea-b963-e90547c026ae"
+        },
+        "profileId": {
+          "type": "string",
+          "example": "3s10418e3b-5d73-4dea-b963-e90547c026ae"
+        }
+      }
+    },
+    "subscriptionData": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "subscriptionId": {
+              "type": "string",
+              "example": "10418e3b-5d73-4dea-b963-e90547c026ae"
+            },
+            "profileId": {
+              "type": "string",
+              "example": "3s10418e3b-5d73-4dea-b963-e90547c026ae"
+            }
+          }
+        }
+      }
+    },
+    "sim": {
+      "type": "object",
+      "properties": {
+        "iccid": {
+          "type": "string",
+          "example": "8910300000000793020"
+        }
+      }
+    },
+    "simPackageStatus": {
+      "type": "object",
+      "properties": {
+        "packageTypeId": {
+          "type": "string",
+          "example": "84890"
+        },
+        "packageStatus": {
+          "type": "string",
+          "example": "ACTIVE"
+        }
+      }
+    },
+    "customerInput": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "example": "1Eazpa2eZvKYlo2CCi8tGpRb"
+        }
+      }
+    }
+  }
+}
